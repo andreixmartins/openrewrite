@@ -1,9 +1,9 @@
 
 
 
-# OpenRewriter 
+# Openrewrite 
 
-OpenRewrite is an automated refactoring tool that applies declarative “recipes” to safely update code and build files at scale. 
+Openrewrite is an automated refactoring tool that applies declarative “recipes” to safely update code and build files at scale. 
 Use it to upgrade libs, fix APIs, enforce dependency rules, and clean up.
 
 Check the rewrite.yml file that contains all recipes used in this repo. Also, take a look in the pom.xml to understand how operewriter plugin works.
