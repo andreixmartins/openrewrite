@@ -1,0 +1,68 @@
+
+type: specs.openrewrite.org/v1beta/config
+name: com.amartins.RewriteConfig
+recipeList:
+  - com.amartins.RemoveOldStruts
+  - com.amartins.PinStruts2_640 
+  - com.amartins.AddStruts2CoreAsDependency 
+  - com.amartins.ExcludeJ2Objc 
+  - com.amartins.AddCommentToMavenDependency 
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.RemoveOldStruts
+displayName: Remove direct Struts dependencies and tidy source
+description: Removes any direct org.apache.struts or legacy struts group dependencies and cleans imports/formatting.
+recipeList:
+  - org.openrewrite.maven.RemoveDependency:
+      groupId: org.apache.struts
+      artifactId: "*"
+  - org.openrewrite.maven.RemoveDependency:
+      groupId: struts
+      artifactId: "*"
+  - org.openrewrite.java.RemoveUnusedImports
+  - org.openrewrite.java.format.AutoFormat
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.PinStruts2_640
+displayName: Pin Struts 2 core to 6.4.0 via dependencyManagement
+recipeList:
+  - org.openrewrite.maven.AddManagedDependency:
+      groupId: org.apache.struts
+      artifactId: struts2-core
+      version: 6.4.0
+      type: jar
+      scope: compile
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.AddStruts2CoreAsDependency
+displayName: Add struts2-core to dependencies (not dependencyManagement)
+recipeList:
+  - org.openrewrite.maven.AddDependency:
+      groupId: org.apache.struts
+      artifactId: struts2-core
+      version: 6.4.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.ExcludeJ2Objc
+displayName: Exclude j2objc library
+recipeList:
+  - org.openrewrite.maven.ExcludeDependency:
+      groupId: com.google.j2objc
+      artifactId: j2objc-annotations
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.ShowJ2objc
+recipeList:
+  - org.openrewrite.maven.search.DependencyInsight:
+      groupIdPattern: com.google.j2objc
+      artifactIdPattern: "*"
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.amartins.AddCommentToMavenDependency
+displayName: Add a comment to guava
+recipeList:
+  - org.openrewrite.maven.AddCommentToMavenDependency:
+      xPath: /project/dependencies/dependency
+      groupId: com.google.guava
+      artifactId: guava
+      commentText: This dependency will be removed when we upgrade the next version is available.

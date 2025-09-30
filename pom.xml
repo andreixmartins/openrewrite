@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+     https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.example</groupId>
+    <artifactId>spring-boot-no-struts</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spring-boot-no-struts</name>
+    <description>Spring Boot app with OpenRewrite recipes to purge Struts (direct and transitive)</description>
+
+    <properties>
+        <java.version>23</java.version>
+        <rewrite.maven.plugin.version>6.17.0</rewrite.maven.plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.5.0-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <version>${rewrite.maven.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite</groupId>
+                        <artifactId>rewrite-maven</artifactId>
+                        <version>8.62.4</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <checkstyleDetectionEnabled>false</checkstyleDetectionEnabled>
+                    <!-- <configLocation>rewrite.yml</configLocation> -->
+                    <failOnDryRunResults>true</failOnDryRunResults>
+                    <activeRecipes>
+                        <recipe>com.amartins.ShowJ2objc</recipe>
+                        <recipe>com.amartins.AddCommentToMavenDependency</recipe>
+                        <recipe>com.amartins.RemoveOldStruts</recipe>
+                        <recipe>com.amartins.AddStruts2CoreAsDependency</recipe>
+                        <recipe>com.amartins.ExcludeJ2Objc</recipe>
+                    </activeRecipes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
