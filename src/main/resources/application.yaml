@@ -3,4 +3,4 @@ server:
   port: 8080
 spring:
   application:
-    name: spring-boot-no-struts
+    name: openrewriter

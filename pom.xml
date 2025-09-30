@@ -11,11 +11,11 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>spring-boot-no-struts</artifactId>
+    <groupId>com.amartins</groupId>
+    <artifactId>openrewriter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-no-struts</name>
-    <description>Spring Boot app with OpenRewrite recipes to purge Struts (direct and transitive)</description>
+    <name>openrewriter</name>
+    <description>Spring Boot app with OpenRewrite recipes</description>
 
     <properties>
         <java.version>23</java.version>
@@ -64,6 +64,7 @@
                 </dependencies>
                 <configuration>
                     <checkstyleDetectionEnabled>false</checkstyleDetectionEnabled>
+                    <!-- configLocation default values is rewrite.yml -->
                     <!-- <configLocation>rewrite.yml</configLocation> -->
                     <failOnDryRunResults>true</failOnDryRunResults>
                     <activeRecipes>
